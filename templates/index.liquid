@@ -1,0 +1,285 @@
+{% if settings.homepage-images %}
+
+{% if settings.display-wide %}
+{% else %}
+<div class="row">
+  <div class="desktop-12 mobile-3">
+    {% endif %}
+    
+    {% if settings.homepage-display == 'video' %}
+    <div class="videoWrapper">
+      {{ settings.video-embed }}
+    </div>
+    
+    {% elsif settings.homepage-display == 'slideshow' %}
+    <div class="flexslider">
+      <ul class="slides">
+        <li>
+          <a href="{{ settings.slide1_url }}">
+            <img src="{{ 'slide1.jpg' | asset_url }}" alt="{{shop.name}}" />
+            {% if settings.slide-1-mask %}<div class="mask"></div>{% endif %}
+          </a>         
+          {% if settings.slide-1-content %}
+          <div class="flex-caption">
+            {% if settings.slide-1-title != blank %}<p class="title">{{ settings.slide-1-title }}</p>{% endif %}
+            {% if settings.slide-1-caption != blank %}<p class="caption">{{ settings.slide-1-caption }}</p>{% endif %}
+            {% if settings.slide-1-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide1_url }}">{{ settings.slide-1-button-text }}</a>
+            </div>
+            {% endif %}            
+          </div>
+          {% endif %}  
+        </li>
+        
+        {% if settings.slide-2-check %}
+        <li>
+          <a href="{{ settings.slide2_url }}">
+            <img src="{{ 'slide2.jpg' | asset_url }}" alt="{{ settings.slide1_alt }}" />          
+            {% if settings.slide-2-mask %}<div class="mask"></div>{% endif %}                    
+          </a>
+          {% if settings.slide-2-content %}
+          <div class="flex-caption">
+            {% if settings.slide-2-title != blank %}<p class="title">{{ settings.slide-2-title }}</p>{% endif %}
+            {% if settings.slide-2-caption != blank %}<p class="caption">{{ settings.slide-2-caption }}</p>{% endif %}
+            {% if settings.slide-2-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide2_url }}">{{ settings.slide-2-button-text }}</a>
+            </div>
+            {% endif %}            
+          </div>
+          {% endif %}           
+        </li>
+        {% endif %}
+        
+        {% if settings.slide-3-check %}
+        <li>
+          <a href="{{ settings.slide3_url }}">
+            <img src="{{ 'slide3.jpg' | asset_url }}" alt="{{ settings.slide2_alt }}" />
+            {% if settings.slide-3-mask %}<div class="mask"></div>{% endif %}            
+          </a>
+          {% if settings.slide-3-content %}
+          <div class="flex-caption">
+            {% if settings.slide-3-title != blank %}<p class="title">{{ settings.slide-3-title }}</p>{% endif %}
+            {% if settings.slide-3-caption != blank %}<p class="caption">{{ settings.slide-3-caption }}</p>{% endif %}
+            {% if settings.slide-3-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide3_url }}">{{ settings.slide-3-button-text }}</a>
+            </div>
+            {% endif %}            
+          </div>
+          {% endif %}       
+        </li>
+        {% endif %}
+        
+        {% if settings.slide-4-check %}
+        <li>
+          <a href="{{ settings.slide4_url }}">
+            <img src="{{ 'slide4.jpg' | asset_url }}" alt="{{ settings.slide3_alt }}" />
+            {% if settings.slide-4-mask %}<div class="mask"></div>{% endif %}            
+          </a>
+          {% if settings.slide-4-content %}
+          <div class="flex-caption">
+            {% if settings.slide-4-title != blank %}<p class="title">{{ settings.slide-4-title }}</p>{% endif %}
+            {% if settings.slide-4-caption != blank %}<p class="caption">{{ settings.slide-4-caption }}</p>{% endif %}
+            {% if settings.slide-4-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide4_url }}">{{ settings.slide-4-button-text }}</a>
+            </div>
+            {% endif %}            
+          </div>
+          {% endif %}            
+        </li>
+        {% endif %}
+        
+        {% if settings.slide-5-check %}
+        <li>
+          <a href="{{ settings.slide5_url }}">
+            <img src="{{ 'slide5.jpg' | asset_url }}" alt="{{ settings.slide5_alt }}" />
+            {% if settings.slide-5-mask %}<div class="mask"></div>{% endif %}            
+          </a>
+          {% if settings.slide-5-content %}
+          <div class="flex-caption">
+            {% if settings.slide-5-title != blank %}<p class="title">{{ settings.slide-5-title }}</p>{% endif %}
+            {% if settings.slide-5-caption != blank %}<p class="caption">{{ settings.slide-5-caption }}</p>{% endif %}
+            {% if settings.slide-5-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide5_url }}">{{ settings.slide-5-button-text }}</a>
+            </div>
+            {% endif %}            
+          </div>
+          {% endif %}         
+        </li>
+        {% endif %}
+        
+      </ul>
+    </div> 
+    {% endif %} 
+    
+    {% if settings.display-wide %}
+    {% else %}
+  </div>
+</div>
+{% endif %}    
+{% endif %}
+
+
+<div class="clear"></div>
+
+<div id="content" class="row" {% if settings.display-wide %}style="margin-top: 20px"{% endif %}>
+  
+  {% if settings.homepage-collections %}
+  
+  
+  <div id="collection-loop">
+    
+    <div class="section-title lines desktop-12"><h2>{{ settings.homepage-collect-title }}</h2></div>  
+
+   {% for link in linklists[settings.home-collection-linklist].links %}
+      {% assign collection = link.object %}
+    <div class="collection-index desktop-3 tablet-2 mobile-3{% cycle ' first', '', '', ' last' %}" data-alpha="{{ collection.title }}">  
+      <div class="collection-image">
+        <a href="{{ collection.url }}" title="{{ collection_title }}">
+          {% if collection.image %}
+          {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}
+          {% else %}
+          {{ collection.products.first.featured_image | product_img_url: 'grande' | img_tag: collection_title }}
+          {% endif %}
+        </a>     
+      </div>
+      
+      <div class="collection-info">
+        <a href="{{ collection.url }}" title="Browse our {{ collection.title }} collection">
+          <h3>{{ collection.title }}</h3><p>{{ collection.products_count }} items</p>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <div class="clear"></div>
+  
+  {% endif %}
+  
+  
+  {% if settings.homepage-products %}  
+  
+  <div class="section-title lines desktop-12"><h2>{{ settings.homepage-collection-title }}</h2></div>  
+  
+  <div class="desktop-12 mobile-3">
+    <div class="customNavigation">
+      <a class="btn prev"><i class="icon-chevron-left"></i></a>
+      <a class="btn next"><i class="icon-chevron-right"></i></a>
+    </div>    
+    <div id="product-carousel">
+      {% for product in collections.[settings.homepage-collection].products limit: settings.homepage-product-limit %}
+      <div class="product-car" id="prod-{{ product.id }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+        
+        {% if product.available %}
+        {% for col in product.collections %}
+        {% if col.handle == 'new' %}
+        <div class="new icn">NEW IN</div>
+        {% endif %}
+        {% endfor %}
+        
+        {% if product.price < product.compare_at_price %}
+        <div class="sale-item icn">SALE</div>
+        {% endif %}
+        
+        {% else %}
+        <div class="so icn">SOLD</div>
+        {% endif %}         
+        
+        <a href="{{ product.url | within: collection }}" title="{{ product.title | escape }}">
+          <img class="lazyOwl" data-src="{{ product.images[0] | product_img_url: 'large' }}" alt="{{ product.title | escape }}" />
+        </a>
+        
+        <div class="product-info"> 
+          
+          <div class="product-info-inner">  
+            <a href="{{ product.url | within: collection }}"> 
+              {% if settings.vendor %}<h4>{{ product.vendor }}</h4>{% endif %}
+              <h3>{{ product.title }}</h3>
+            </a>        
+            <div class="price">
+              {% if product.price < product.compare_at_price %}
+              <div class="onsale">{{ product.price | money }}</div>
+              <div class="was">{{ product.compare_at_price | money }}</div>
+              {% else %}
+              <div class="prod-price">{% if product.price_varies %} from {{ product.price_min | money }} - {{ product.price_max | money }} {% else %}{{ product.price | money }}{% endif %}</div>
+              {% endif %}	
+            </div>
+            
+            <a data-rel="product-{{ product.id }}" id="inline" href="#product-{{ product.id }}" class="product-modal">Quick View</a>
+            <div style="display: none">
+              <div class="quick-shop" id="product-{{ product.id }}">
+                {% include 'quick-view' %}
+              </div>
+            </div>  
+          </div>
+        </div> 
+      </div>
+      {% endfor %}
+    </div>      
+  </div>
+  
+  <div class="clear"></div>
+  {% endif %}
+  
+  
+  {% if settings.pages %}
+  
+  <div id="index-content-left" class="desktop-12 tablet-6 mobile-3">
+    <div class="section-title lines"><h2>{{ pages.[settings.pages-left].title }}</h2></div>  
+    <div class="pages-left-content">
+      {{ pages.[settings.pages-left].content }}
+    </div>
+  </div>
+  
+  {% endif %}  
+  
+  
+  {% if settings.promo %}
+  <div id="promo-images">
+    <div class="desktop-4 tablet-2 mobile-3">
+      <a href="{{ settings.leftlink }}"><img src="{{ 'leftpromo.jpg' | asset_url }}" alt="{{ shop.name }}" style="border: 0;"/></a>
+    </div>
+    
+    <div class="desktop-4 tablet-2 mobile-3">
+      <a href="{{ settings.midlink }}"><img src="{{ 'midpromo.jpg' | asset_url }}" alt="{{ shop.name }}" style="border: 0;"/></a>
+    </div>
+    
+    <div class="desktop-4 tablet-2 mobile-3">
+      <a href="{{ settings.rightlink }}"><img src="{{ 'rightpromo.jpg' | asset_url }}" alt="{{ shop.name }}" style="border: 0;"/></a>
+    </div>
+  </div>
+  
+  <div class="clear"></div>  
+  
+  {% endif %} 
+  
+  
+  
+    {% if settings.show-instagram-feed %}    
+    {% assign url = '{{image}}' %}
+    {% assign caption = '{{caption}}' %}
+    <div id="instagram-card">
+    <div class="section-title lines"><h2><a href="http://instagram.com/{{ settings.instagram-id }}" target="_blank">Follow @{{ settings.instagram-id }}</a> on Instagram</h2></div>  
+            <div id="instafeed"></div>
+      <script type="text/javascript">
+        var userFeed = new Instafeed({
+          get: 'user',
+          userId: {{ settings.instagram-user-id }},
+          accessToken: '{{ settings.instagram-access-token }}',
+          template: '<a class="fancybox desktop-2 mobile-half padded" href="{{url}}" rel="ig" title="{{ caption }}"><img class="instagram-image" src="{{ url }}" /></a>'
+        });
+        userFeed.run();        
+      </script>
+    </div>
+    {% endif %}  
+  
+  
+  
+  
+  
+</div>
